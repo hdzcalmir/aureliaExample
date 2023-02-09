@@ -1,0 +1,21 @@
+<import from="./contact.css"></import>
+
+<div class="contact">
+<h1>Contact form</h1>
+
+
+<form submit.trigger="handleLogin()">
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" type="text" value.bind="user.username">
+    </div>
+    <div>
+        <label for="password">Message:</label>
+        <input id="password" type="password" value.bind="user.password">
+    </div>
+    
+    <button type="submit">Send</button>
+</form>
+<button click.trigger="test()">Test</button>
+
+</div>
