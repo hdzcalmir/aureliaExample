@@ -1,12 +1,5 @@
 import { observable } from "aurelia";
-
-export interface IProduct {
-    id: number;
-    name: string;
-    price: number;
-    currency: string;
-    selected: boolean;
-  }
+import { IProduct } from "./IProduct";
 
   export class Selected {
     @observable products: IProduct[];
@@ -14,6 +7,10 @@ export interface IProduct {
     selectedItems: Array<IProduct>;
     order: boolean | string = false;
     reset: boolean | string = false;
+
+    private itemsAddedToCart(): boolean {
+      return this.selectedItems.length > 0;
+    }
 
     constructor() {
       this.products = [
@@ -29,22 +26,19 @@ export interface IProduct {
       this.selectedItems = new Array<IProduct>();
     
     }
-
-    productsChanged(o, n) {
-      console.log(n);
-    }
-
-    attached() {
-      console.log(this.products);
-      
-    }
-
-    updateProduct(product) {
+    
+    updateProduct(product): void {
       product.selected = !product.selected;
       this.updateCart(product);      
     }
 
-    removeProductFromCart(selectedItems, itemToRemove) {
+    updateCart(product): void {
+      if(product.selected) this.selectedItems.push(product);
+      if(product.selected === false) this.removeProductFromCart(this.selectedItems, product.id)
+      
+    } 
+
+    removeProductFromCart(selectedItems, itemToRemove): any {
       const itemId = selectedItems.findIndex(item => item.id === itemToRemove);
     
       if (itemId > -1) {
@@ -54,26 +48,17 @@ export interface IProduct {
       return selectedItems;
     }
 
-    updateCart(product) {
-      if(product.selected) this.selectedItems.push(product);
-      if(product.selected === false) this.removeProductFromCart(this.selectedItems, product.id)
-      
-    } 
-
-    buyItems() {
+    buyItems(): void {
       if(this.itemsAddedToCart()) this.order = `You succesfully completed your order for items ${this.selectedItems.map(name => name.name )}!`; this.reset = false;
     } 
 
-    private itemsAddedToCart() {
-      return this.selectedItems.length > 0;
-    }
+    emptyYourCart(): void{
 
-    emptyYourCart(){
-      
       this.selectedItems = [];
       if(this.itemsAddedToCart() == false) this.reset = 'You emptied your cart!'; this.order = false;
       
     }
+
   }
   
   

@@ -59,11 +59,15 @@
     flex-direction: column;
   }
 
+  main {
+    margin: 0 50px;
+  }
+
   </style>
   </head>
   <body>
   
-
+  <main>
   <h1>Table of available products</h1>
   
   <table id="customers">
@@ -81,7 +85,8 @@
     </tr>
   </table>
 
-  <table id="cart" style="margin-top: 5rem;">
+  <h1  style="margin-top: 5rem;">Your cart</h1>
+  <table id="cart">
     <tr>
       <th>ID</th>
       <th>Product name</th>
@@ -100,7 +105,7 @@
   </div>
   <h2>${order ? order : ''}</h2>
   <h2>${reset ? reset : ''}</h2>  
-  
+</main>
 
 </body>
 
