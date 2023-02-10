@@ -13,6 +13,7 @@ export interface IProduct {
 
     selectedItems: Array<IProduct>;
     order: boolean | string = false;
+    reset: boolean | string = false;
 
     constructor() {
       this.products = [
@@ -60,12 +61,18 @@ export interface IProduct {
     } 
 
     buyItems() {
-      if(this.itemsAddedToCart()) this.order = `You succesfully completed your order for items ${this.selectedItems.map(name => name.name )}!`
-    }
-      
+      if(this.itemsAddedToCart()) this.order = `You succesfully completed your order for items ${this.selectedItems.map(name => name.name )}!`; this.reset = false;
+    } 
 
     private itemsAddedToCart() {
       return this.selectedItems.length > 0;
+    }
+
+    emptyYourCart(){
+      
+      this.selectedItems = [];
+      if(this.itemsAddedToCart() == false) this.reset = 'You emptied your cart!'; this.order = false;
+      
     }
   }
   

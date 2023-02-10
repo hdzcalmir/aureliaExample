@@ -35,10 +35,28 @@
     justify-self: center;
 
   }
+  .btn-reset {
+    margin-top: 10rem;
+    padding: 20px;
+    font-size: 20px;
+    background-color: #aa0404;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    justify-self: center;
+
+  }
+
+  .btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
 
   body {
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
 
   </style>
@@ -76,8 +94,13 @@
     </tr>
   </table>
 
+  <div class="btns">
+  <button click.trigger="emptyYourCart()" class="btn-reset">Empty cart</button>
   <button click.trigger="buyItems()" class="btn">Make order</button>
+  </div>
   <h2>${order ? order : ''}</h2>
+  <h2>${reset ? reset : ''}</h2>  
+  
 
 </body>
 
