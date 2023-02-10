@@ -1,5 +1,5 @@
 export class Checked {
-    motherboard = false;
+    motherboard = true;
     cpu = false;
     memory = false;
   }

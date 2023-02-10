@@ -1,14 +1,90 @@
-<template>
-    <form>
-      <h4>Products</h4>
-      <label repeat.for="product of products">
-        <input type="checkbox" model.bind="product" checked.bind="selectedProducts">
-        ${product.id} - ${product.name}
-      </label>
+<style>
+  #customers, #cart {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
   
-      Selected products:
-      <ul>
-        <li repeat.for="product of selectedProducts">${product.id} - ${product.name}</li>
-      </ul>
-    </form>
-  </template>
+  #customers td, #customers th, #cart td, #cart th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  #cart tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  #cart tr:hover {background-color: #ddd;}
+  
+  #customers th, #cart th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .btn {
+    margin-top: 10rem;
+    padding: 20px;
+    font-size: 20px;
+    background-color: #04AA6D;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    justify-self: center;
+
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  </style>
+  </head>
+  <body>
+  
+
+  <h1>Table of available products</h1>
+  
+  <table id="customers">
+    <tr>
+      <th>ID</th>
+      <th>Product name</th>
+      <th>Product price</th>
+      <th>Add to cart</th>
+    </tr>
+    <tr repeat.for="p of products">
+      <td>${p.id + 1}</td>
+      <td>${p.name}</td>
+      <td>${p.price} ${p.currency}</td>
+      <td><input click.trigger="updateProduct(p)" model.bind="p" type="checkbox" checked.bind="p.selected"></td>
+    </tr>
+  </table>
+
+  <table id="cart" style="margin-top: 5rem;">
+    <tr>
+      <th>ID</th>
+      <th>Product name</th>
+      <th>Product price</th>
+    </tr>
+    <tr repeat.for="i of selectedItems ">
+      <td>${i.id + 1}</td>
+      <td>${i.name}</td>
+      <td>${i.price} ${i.currency}</td>
+    </tr>
+  </table>
+
+  <button click.trigger="buyItems()" class="btn">Make order</button>
+  <h2>${order ? order : ''}</h2>
+
+</body>
+
+ 
+
+
+
+
+
+
