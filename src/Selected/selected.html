@@ -47,6 +47,10 @@
 
   }
 
+  .red {
+    background-color: red;
+  }
+
   .btns {
     display: flex;
     justify-content: flex-end;
@@ -67,12 +71,15 @@
   </head>
   <body>
   
+    <div if.bind="isLoading">Loading...</div>
   <main>
   <h1>Table of available products</h1>
-  
+  <h2 if.bind="isLoading">Loading...</h2>
+  <h2 else>Page loaded.</h2>
+
   <table id="customers">
     <tr>
-      <th>ID</th>
+      <th style.bind="styleObject">ID</th>
       <th>Product name</th>
       <th>Product price</th>
       <th>Add to cart</th>
@@ -84,6 +91,31 @@
       <td><input click.trigger="updateProduct(p)" model.bind="p" type="checkbox" checked.bind="p.selected"></td>
     </tr>
   </table>
+
+  <p switch.bind="selectedAction">
+    <span case="mask">You are more protected from aerosol particles, and others are protected from you.</span>
+    <span case="sanitizer">You are making sure viruses won't be spread easily.</span>
+    <span case="wash">You are helping eliminate the virus.</span>
+    <span case="all">You are protecting yourself and the people around you. You rock!</span>
+    <span default-case>Unknown.</span>
+  </p>
+
+  <ul>
+    <li repeat.for="p of products">${p.name}</li>
+  </ul>
+
+  <ul>
+    <li repeat.for="p of products">${$length}</li>
+  </ul>
+
+<!-- same as 
+for (let item of items) {
+  console.log(item.name);
+} -->
+
+  <!-- <p repeat.for="name of products">Hello, ${name.name}!</p> -->
+
+  <h1>Total: ${products.reduce((sum, product) => sum + product.price, 0)}</h1>
 
   <h1  style="margin-top: 5rem;">Your cart</h1>
   <table id="cart">

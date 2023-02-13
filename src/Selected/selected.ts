@@ -4,6 +4,15 @@ import { IProduct } from "./IProduct";
   export class Selected {
     @observable products: IProduct[];
 
+    private styleObject = {
+    background: 'red',
+    color: 'green'
+    }
+
+    isLoading: boolean = true;
+
+    selectedAction: string = 'mask';
+
     selectedItems: Array<IProduct>;
     order: boolean | string = false;
     reset: boolean | string = false;
