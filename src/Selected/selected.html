@@ -1,150 +1,155 @@
+<!-- <import from="./selected.css"></import> -->
+
 <style>
-  #customers, #cart {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  #customers td, #customers th, #cart td, #cart th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-  #cart tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #customers tr:hover {background-color: #ddd;}
-  #cart tr:hover {background-color: #ddd;}
-  
-  #customers th, #cart th{
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04AA6D;
-    color: white;
-  }
+  #customers,
+#cart {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
-  .btn {
-    margin-top: 10rem;
-    padding: 20px;
-    font-size: 20px;
-    background-color: #04AA6D;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    justify-self: center;
+#customers td,
+#customers th,
+#cart td,
+#cart th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
-  }
-  .btn-reset {
-    margin-top: 10rem;
-    padding: 20px;
-    font-size: 20px;
-    background-color: #aa0404;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    justify-self: center;
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-  }
+#cart tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-  .red {
-    background-color: red;
-  }
+#customers tr:hover {
+  background-color: #ddd;
+}
 
-  .btns {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
+#cart tr:hover {
+  background-color: #ddd;
+}
 
-  body {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+#customers th,
+#cart th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
 
-  main {
-    margin: 0 50px;
-  }
+.btn {
+  margin-top: 10rem;
+  padding: 20px;
+  font-size: 20px;
+  background-color: #04AA6D;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  justify-self: center;
 
-  </style>
-  </head>
-  <body>
-  
-    <div if.bind="isLoading">Loading...</div>
-  <main>
-  <h1>Table of available products</h1>
-  <h2 if.bind="isLoading">Loading...</h2>
-  <h2 else>Page loaded.</h2>
+}
 
-  <table id="customers">
-    <tr>
-      <th style.bind="styleObject">ID</th>
-      <th>Product name</th>
-      <th>Product price</th>
-      <th>Add to cart</th>
-    </tr>
+.btn-reset {
+  margin-top: 10rem;
+  padding: 20px;
+  font-size: 20px;
+  background-color: #aa0404;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  justify-self: center;
+
+}
+
+.red {
+  background-color: red;
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+main {
+  margin: 0 50px;
+}
+</style>
+
+<div if.bind="isLoading">Loading...</div>
+<h1>Table of available products</h1>
+<h2 if.bind="isLoading">Loading...</h2>
+<h2 else>Page loaded.</h2>
+
+<table id="customers">
+  <thead>
+    <th style.bind="styleObject">ID</th>
+    <th>Product name</th>
+    <th>Product price</th>
+    <th>Add to cart</th>
+  </thead>
+  <tbody>
     <tr repeat.for="p of products">
       <td>${p.id + 1}</td>
       <td>${p.name}</td>
       <td>${p.price} ${p.currency}</td>
       <td><input click.trigger="updateProduct(p)" model.bind="p" type="checkbox" checked.bind="p.selected"></td>
     </tr>
-  </table>
+  </tbody>
+</table>
 
-  <p switch.bind="selectedAction">
-    <span case="mask">You are more protected from aerosol particles, and others are protected from you.</span>
-    <span case="sanitizer">You are making sure viruses won't be spread easily.</span>
-    <span case="wash">You are helping eliminate the virus.</span>
-    <span case="all">You are protecting yourself and the people around you. You rock!</span>
-    <span default-case>Unknown.</span>
-  </p>
+<p switch.bind="selectedAction">
+  <span case="mask">You are more protected from aerosol particles, and others are protected from you.</span>
+  <span case="sanitizer">You are making sure viruses won't be spread easily.</span>
+  <span case="wash">You are helping eliminate the virus.</span>
+  <span case="all">You are protecting yourself and the people around you. You rock!</span>
+  <span default-case>Unknown.</span>
+</p>
 
-  <ul>
-    <li repeat.for="p of products">${p.name}</li>
-  </ul>
+<ul>
+  <li repeat.for="p of products">${p.name}</li>
+</ul>
 
-  <ul>
-    <li repeat.for="p of products">${$length}</li>
-  </ul>
+<ul>
+  <li repeat.for="p of products">${$length}</li>
+</ul>
 
 <!-- same as 
 for (let item of items) {
   console.log(item.name);
 } -->
 
-  <!-- <p repeat.for="name of products">Hello, ${name.name}!</p> -->
+<!-- <p repeat.for="name of products">Hello, ${name.name}!</p> -->
 
-  <h1>Total: ${products.reduce((sum, product) => sum + product.price, 0)}</h1>
+<h1>Total: ${products.reduce((sum, product) => sum + product.price, 0)}</h1>
 
-  <h1  style="margin-top: 5rem;">Your cart</h1>
-  <table id="cart">
-    <tr>
-      <th>ID</th>
-      <th>Product name</th>
-      <th>Product price</th>
-    </tr>
-    <tr repeat.for="i of selectedItems ">
-      <td>${i.id + 1}</td>
-      <td>${i.name}</td>
-      <td>${i.price} ${i.currency}</td>
-    </tr>
-  </table>
+<h1 style="margin-top: 5rem;">Your cart</h1>
+<table id="cart">
+  <tr>
+    <th>ID</th>
+    <th>Product name</th>
+    <th>Product price</th>
+  </tr>
+  <tr repeat.for="i of selectedItems ">
+    <td>${i.id + 1}</td>
+    <td>${i.name}</td>
+    <td>${i.price} ${i.currency}</td>
+  </tr>
+</table>
 
-  <div class="btns">
+<div class="btns">
   <button click.trigger="emptyYourCart()" class="btn-reset">Empty cart</button>
   <button click.trigger="buyItems()" class="btn">Make order</button>
-  </div>
-  <h2>${order ? order : ''}</h2>
-  <h2>${reset ? reset : ''}</h2>  
-</main>
-
-</body>
-
- 
-
-
-
-
-
-
+</div>
+<h2>${order ? order : ''}</h2>
+<h2>${reset ? reset : ''}</h2>
